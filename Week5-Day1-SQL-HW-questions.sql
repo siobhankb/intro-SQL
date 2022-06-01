@@ -1,4 +1,3 @@
-Answers USING the ONLINE 
 
 --1. How many actors are there with the last name ‘Wahlberg’?
 SELECT *
@@ -17,6 +16,7 @@ WHERE amount BETWEEN 3.99 AND 5.99;
 
 --3. What film does the store have the most of? (search in inventory)
 --   (film id #)
+
 SELECT film_id, count(*)
 FROM inventory
 GROUP BY film_id 
@@ -43,6 +43,12 @@ FROM customer
 WHERE last_name = 'Williams'
 --Linda Williams
 
+--5. What store employee (get the id) sold the most rentals?
+SELECT staff_id, count(*) AS num_sales
+FROM payment
+GROUP BY staff_id 
+ORDER BY num_sales DESC;
+--Answer: Staff #2 made 7,304 sales
 
 
 --6. How many different district names are there?
