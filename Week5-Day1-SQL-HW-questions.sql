@@ -43,17 +43,33 @@ FROM customer
 WHERE last_name = 'Williams'
 --Linda Williams
 
+
 --5. What store employee (get the id) sold the most rentals?
+SELECT *
+FROM payment;
+
 SELECT staff_id, count(*) AS num_sales
 FROM payment
 GROUP BY staff_id 
 ORDER BY num_sales DESC;
 --Answer: Staff #2 made 7,304 sales
 
+SELECT *
+FROM rental;
+
+SELECT staff_id, count(*) AS num_rentals
+FROM rental
+GROUP BY staff_id 
+ORDER BY num_rentals DESC;
+--Answer: Staff #1 made 8,040 rentals
+
 
 --6. How many different district names are there?
 --google unique count()
 --DISTINCT 
+SELECT DISTINCT district
+FROM address;
+
 SELECT count(DISTINCT district)
 FROM address;
 --Answer: 378
@@ -69,38 +85,35 @@ ORDER BY count(*)DESC;
 
 --8. From store_id 1, how many customers have a last name ending with ‘es’? 
 --   (use customer table)
-SELECT count(*)
-FROM customer
-WHERE last_name LIKE '%es';
---Answer: 21 customers have names ending in es
 SELECT last_name, count(*)
 FROM customer
-WHERE last_name LIKE '%es'
+WHERE store_id = 1 AND last_name LIKE '%es'
 GROUP BY last_name
 ORDER BY last_name;
---alphabetically first is 'Bales' ... last is 'Wiles'
+--Answer 13 customers from store_id #1 have names ending in es
 
 
 --9. How many payment amounts (4.99, 5.99, etc.) 
 --   had a number of rentals above 250 for 
 --   customers with ids between 380 and 430? (use group by and having > 250)
 
-SELECT *
+--Brian's answer
+SELECT amount, count(*)
 FROM payment
+WHERE customer_id BETWEEN 80 AND 430
+GROUP BY amount
+HAVING count(*) > 250;
+--Brian's answer
+
+--my answer - I had the WHERE and GROUP BY reversed and got an error
+--see notes to self in Slack
+--Brian also posted order of operations in kekambas Slack channel
+SELECT amount, count(*) AS amt_num
+FROM payment
+GROUP BY amount
 WHERE customer_id BETWEEN 380 AND 430
 HAVING count(amount) > 250;
 
-SELECT customer_id, count(*)
-FROM payment
-WHERE customer_id BETWEEN 380 AND 430
-GROUP BY customer_id 
-ORDER BY count(*) DESC;
-
-SELECT customer_id, count(*)
-FROM payment
-WHERE customer_id BETWEEN 380 AND 430
-HAVING count(amount) > 250 
-ORDER BY count(*) DESC;
 
 --10. (a) Within the film table, how many rating categories are there? 
 SELECT count(DISTINCT rating) 
@@ -114,6 +127,8 @@ FROM film
 GROUP BY rating
 ORDER BY count(rating) DESC;
 --Answer: There are 223 PG-13 movies
+--Brian says, "You can get both answers from this query
+--             because there are only 5 ratings, so you could just count the rows" 
 
 
 

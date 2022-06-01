@@ -149,7 +149,25 @@ GROUP BY customer_id
 HAVING count(*) <= 40
 ORDER BY sum(amount) DESC
 OFFSET 9 -- SKIP OVER FIRST 10 rows
-LIMIT 5; -- limits TO ONLY showing 5 rows
+LIMIT 5; -- limits TO ONLY showing 5 ROWS
+
+
+
+--ORDER will always be:
+SELECT 
+FROM 
+JOIN 
+ON
+WHERE 
+GROUP BY 
+HAVING 
+ORDER BY 
+OFFSET 
+LIMIT 
+
+
+
+
 
 
 
